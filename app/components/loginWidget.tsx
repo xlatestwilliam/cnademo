@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation'
 import { Widget } from '@xsolla/login-sdk';
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer, useState, useRef } from 'react';
 import styled from 'styled-components'
 
 type TodoArr = {
@@ -30,16 +30,22 @@ export default function Home() {
   const urlParams: URLSearchParams | undefined = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : undefined;
   const tokenParamTrad = urlParams?.get('token');
 
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined'){
-  //     const xl = new Widget({
-  //       callbackUrl: 'https://test-370.xsollasitebuilder.com/',
-  //       projectId: '8fd9bf2f-ec9a-11ec-b9f0-42010aa80004',
-  //       preferredLocale: 'en_US'
-  //     });
-  //     xl.mount('widget');
-  //   }
-  // },[])
+  const effectRan = useRef(false);
+
+  useEffect(() => {
+    if (effectRan.current) return;
+
+    if (typeof window !== 'undefined'){
+      effectRan.current = true;
+      const xl = new Widget({
+        // callbackUrl: 'https://test-370.xsollasitebuilder.com/',
+        projectId: '9ab24938-123a-4f91-bb64-ecaf31026e83',
+        preferredLocale: 'en_US',
+        url: 'https://login-widget-ng-stage-2024-08-26-01.gcp-k8s-login-stage.srv.local/latest',
+      });
+      xl.mount('widget');
+    }
+  },[])
 
   const initialTodos = {
     count: 0,
@@ -161,7 +167,11 @@ export default function Home() {
   }
 
   return (
-    <div id="widget" style={{height:'100vh'}}></div>
+    <>
+      <div>This is a test</div>
+      <div id="widget" style={{height:'100vh'}}></div>
+    </>
+    
     // <div>
     //   <AddTodo/>
     //   {
