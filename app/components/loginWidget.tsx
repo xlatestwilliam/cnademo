@@ -45,7 +45,20 @@ const styles = {
   },
   image: {
     marginRight: '8px', // Space between image and text
-  }
+  },
+  spinner: {
+    border: '4px solid #ffffff',
+    borderRadius: '50%',
+    borderTop: '4px solid #ffffff',
+    width: '40px',
+    height: '40px',
+    animation: 'spin 1s linear infinite',
+  },
+  // Add keyframes for spinner animation
+  '@keyframes spin': {
+    '0%': { transform: 'rotate(0deg)' },
+    '100%': { transform: 'rotate(360deg)' },
+  },
 };
 
 export default function Home() {
@@ -192,7 +205,12 @@ export default function Home() {
     )
   }
 
+  const [loading2, setLoading2] = useState<boolean>(false)
+
+  console.log('loading2',loading2)
+
   const handleClick = () => {
+    setLoading2(true);
     window.location.href = 'https://test-login.xsolla.com/api/social/babka/login_redirect?projectId=0a77b0f4-9f3b-48c8-a91c-e61ae13fb473&locale=en_XX&phone_only=true'; // Redirect to Google
   };
 
@@ -216,9 +234,13 @@ export default function Home() {
     //   }
     // </div>
     <div style={styles.container}>
+      {loading2 ? (
+        <div style={styles.spinner}></div>
+      ) : (
       <button style={styles.button} onClick={handleClick}>
         <Image src='/xsollalink.png' alt="icon" width={400} height={400} style={styles.image} />
       </button>
+      )}
     </div>
   )
 }
