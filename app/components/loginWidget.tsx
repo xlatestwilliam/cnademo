@@ -22,6 +22,32 @@ type TodoAction =  {
   id?: number
 }
 
+const styles = {
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh', // Full viewport height to center vertically
+    backgroundImage: 'url("/background.png")', // Path to the local background image in the public folder
+    backgroundSize: 'cover', // Cover the whole area
+    backgroundPosition: 'center', // Center the background image
+    backgroundRepeat: 'no-repeat', // Prevent repeating
+  },
+  button: {
+    display: 'flex',
+    alignItems: 'center',
+    border: 'none',
+    padding: '10px',
+    backgroundColor: 'transparent',
+    color: 'white',
+    fontSize: '16px',
+    cursor: 'pointer',
+  },
+  image: {
+    marginRight: '8px', // Space between image and text
+  }
+};
+
 export default function Home() {
 
   const searchParams = useSearchParams()
@@ -166,11 +192,18 @@ export default function Home() {
     )
   }
 
+  const handleClick = () => {
+    window.location.href = 'https://test-login.xsolla.com/api/social/babka/login_redirect?projectId=0a77b0f4-9f3b-48c8-a91c-e61ae13fb473&locale=en_XX&phone_only=true'; // Redirect to Google
+  };
+
   return (
-    <>
-      <div>This is a test</div>
-      <div id="widget" style={{height:'100vh'}}></div>
-    </>
+    // <>
+    //   {/* <div>This is a test</div> */}
+    //   {/* <div id="widget" style={{height:'100vh'}}></div> */}
+    //   <button>
+    //     <Image src='/xsollalink.png' alt="icon" width={200} height={200} />
+    //   </button>
+    // </>
     
     // <div>
     //   <AddTodo/>
@@ -182,5 +215,10 @@ export default function Home() {
     //     })
     //   }
     // </div>
+    <div style={styles.container}>
+      <button style={styles.button} onClick={handleClick}>
+        <Image src='/xsollalink.png' alt="icon" width={400} height={400} style={styles.image} />
+      </button>
+    </div>
   )
 }
