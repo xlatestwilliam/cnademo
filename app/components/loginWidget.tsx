@@ -211,7 +211,7 @@ export default function Home() {
 
   const handleClick = () => {
     setLoading2(true);
-    window.location.href = 'https://test-login.xsolla.com/api/social/babka/login_redirect?projectId=0a77b0f4-9f3b-48c8-a91c-e61ae13fb473&locale=en_XX&phone_only=true'; // Redirect to Google
+    window.location.href = 'https://test-login.xsolla.com/api/social/babka/login_redirect?projectId=0a77b0f4-9f3b-48c8-a91c-e61ae13fb473&locale=en_XX&phone_only=true&login_url=https%3A%2F%2Ftest-wallet.xsolla.com%2Fxsolla-link-subscribe%20'; // Redirect to Google
   };
 
   return (
