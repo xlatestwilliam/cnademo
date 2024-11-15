@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation'
 import { Widget } from '@xsolla/login-sdk';
@@ -63,151 +64,151 @@ const styles = {
 
 export default function Home() {
 
-  const searchParams = useSearchParams()
-  const tokenParam = searchParams.get('token')
+  // const searchParams = useSearchParams()
+  // const tokenParam = searchParams.get('token')
 
-  const urlParams: URLSearchParams | undefined = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : undefined;
-  const tokenParamTrad = urlParams?.get('token');
+  // const urlParams: URLSearchParams | undefined = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : undefined;
+  // const tokenParamTrad = urlParams?.get('token');
 
-  const effectRan = useRef(false);
+  // const effectRan = useRef(false);
 
-  useEffect(() => {
-    if (effectRan.current) return;
+  // useEffect(() => {
+  //   if (effectRan.current) return;
 
-    if (typeof window !== 'undefined'){
-      effectRan.current = true;
-      const xl = new Widget({
-        // callbackUrl: 'https://test-370.xsollasitebuilder.com/',
-        projectId: '9ab24938-123a-4f91-bb64-ecaf31026e83',
-        preferredLocale: 'en_US',
-        url: 'https://login-widget-ng-stage-2024-08-26-01.gcp-k8s-login-stage.srv.local/latest',
-      });
-      xl.mount('widget');
-    }
-  },[])
+  //   if (typeof window !== 'undefined'){
+  //     effectRan.current = true;
+  //     const xl = new Widget({
+  //       // callbackUrl: 'https://test-370.xsollasitebuilder.com/',
+  //       projectId: '9ab24938-123a-4f91-bb64-ecaf31026e83',
+  //       preferredLocale: 'en_US',
+  //       url: 'https://login-widget-ng-stage-2024-08-26-01.gcp-k8s-login-stage.srv.local/latest',
+  //     });
+  //     xl.mount('widget');
+  //   }
+  // },[])
 
-  const initialTodos = {
-    count: 0,
-    todos: []
-  }
+  // const initialTodos = {
+  //   count: 0,
+  //   todos: []
+  // }
 
-  const reducer = (state: Todo, action: TodoAction): Todo => {
-    switch(action.type){
-      case 'add':
-        {
-          const newTodo = {
-            id: state.count + 1,
-            info: action.text || ''
-          }
+  // const reducer = (state: Todo, action: TodoAction): Todo => {
+  //   switch(action.type){
+  //     case 'add':
+  //       {
+  //         const newTodo = {
+  //           id: state.count + 1,
+  //           info: action.text || ''
+  //         }
 
-          return {
-            count: state.count + 1,
-            todos: [...state.todos, newTodo]
-          }
-        }
-      case 'delete':
-        {
-          const idx = state.todos.findIndex(i => i.id === action.id);
+  //         return {
+  //           count: state.count + 1,
+  //           todos: [...state.todos, newTodo]
+  //         }
+  //       }
+  //     case 'delete':
+  //       {
+  //         const idx = state.todos.findIndex(i => i.id === action.id);
 
-          const splicedTodo = Object.assign([], state.todos);
-          splicedTodo.splice(idx, 1)
+  //         const splicedTodo = Object.assign([], state.todos);
+  //         splicedTodo.splice(idx, 1)
 
-          return {
-            count: state.count - 1,
-            todos: splicedTodo
-          }
-        }
-      default:
-        return state
-    }
-  }
+  //         return {
+  //           count: state.count - 1,
+  //           todos: splicedTodo
+  //         }
+  //       }
+  //     default:
+  //       return state
+  //   }
+  // }
 
-  const [todosState, dispatch] = useReducer(reducer, initialTodos);
-  const [loading, setLoading] = useState<boolean>(false)
+  // const [todosState, dispatch] = useReducer(reducer, initialTodos);
+  // const [loading, setLoading] = useState<boolean>(false)
 
 
-  const callWeather = async (input: string) => {
-    let responseData;
+  // const callWeather = async (input: string) => {
+  //   let responseData;
 
-    try {
-      setLoading(true)
-      let url = 'http://api.weatherapi.com/v1/current.json';
-      const key = '36249b1de26d462dbcd41022240204';
-      url += '?' + new URLSearchParams(`key=${key}&q=${input}`)
-      const response = await fetch(url,{
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({})
-      });
+  //   try {
+  //     setLoading(true)
+  //     let url = 'http://api.weatherapi.com/v1/current.json';
+  //     const key = '36249b1de26d462dbcd41022240204';
+  //     url += '?' + new URLSearchParams(`key=${key}&q=${input}`)
+  //     const response = await fetch(url,{
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({})
+  //     });
 
-      if(!response.ok){
-        throw new Error ('bad request')
-      }
+  //     if(!response.ok){
+  //       throw new Error ('bad request')
+  //     }
 
-      responseData = response.json()
-    } catch (error) {
-      console.log('error')
-    } finally {
-      setLoading(false)
-    }
+  //     responseData = response.json()
+  //   } catch (error) {
+  //     console.log('error')
+  //   } finally {
+  //     setLoading(false)
+  //   }
 
-    return responseData
-  }
+  //   return responseData
+  // }
 
-  const handleAdd = async (location: string) => {
+  // const handleAdd = async (location: string) => {
     
-    if(!location){
-      return
-    }
+  //   if(!location){
+  //     return
+  //   }
 
-    const weather = await callWeather(location)
-    console.log(weather)
-    const locationName = weather.location.name;
-    const locationCountry = weather.location.country;
-    const locationTemp = weather.current.temp_c;
+  //   const weather = await callWeather(location)
+  //   console.log(weather)
+  //   const locationName = weather.location.name;
+  //   const locationCountry = weather.location.country;
+  //   const locationTemp = weather.current.temp_c;
 
-    dispatch({type: 'add', text: `Location: ${locationName}, ${locationCountry} Temp: ${locationTemp}C`})
-  }
+  //   dispatch({type: 'add', text: `Location: ${locationName}, ${locationCountry} Temp: ${locationTemp}C`})
+  // }
 
-  const handleDelete = (id: number) => {
-    dispatch({type: 'delete', id})
-  }
+  // const handleDelete = (id: number) => {
+  //   dispatch({type: 'delete', id})
+  // }
 
-  const TodoList = (todo: TodoArr) => {
-    return (
-      <div className="Todo">
-        <span className="TodoText">{todo.info}</span>
-        <button className="RemoveTodo" onClick={() => handleDelete(todo.id)}>Remove</button>
-      </div>
-    )
-  }
+  // const TodoList = (todo: TodoArr) => {
+  //   return (
+  //     <div className="Todo">
+  //       <span className="TodoText">{todo.info}</span>
+  //       <button className="RemoveTodo" onClick={() => handleDelete(todo.id)}>Remove</button>
+  //     </div>
+  //   )
+  // }
 
-  const AddTodo = () => {
+  // const AddTodo = () => {
 
-    const [text, setText] = useState<string>('')
+  //   const [text, setText] = useState<string>('')
 
-    const handleInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
-      setText(e.target.value)
-    }
+  //   const handleInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  //     setText(e.target.value)
+  //   }
 
-    return (
-      <div className="AddTodo">
-        <input value={text} onChange={handleInput} className="AddTodoInput"/>
-        <button className="AddTodoButton" onClick={() => {
-          handleAdd(text)
-          setText('')
-        }}>
-        ADD
-        </button>
-      </div>
-    )
-  }
+  //   return (
+  //     <div className="AddTodo">
+  //       <input value={text} onChange={handleInput} className="AddTodoInput"/>
+  //       <button className="AddTodoButton" onClick={() => {
+  //         handleAdd(text)
+  //         setText('')
+  //       }}>
+  //       ADD
+  //       </button>
+  //     </div>
+  //   )
+  // }
 
   const [loading2, setLoading2] = useState<boolean>(false)
 
-  console.log('loading2',loading2)
+  // console.log('loading2',loading2)
 
   const handleClick = () => {
     setLoading2(true);
@@ -233,6 +234,7 @@ export default function Home() {
     //     })
     //   }
     // </div>
+    <React.Suspense fallback={<div style={styles.spinner}></div>}>
     <div style={styles.container}>
       {loading2 ? (
         <div style={styles.spinner}></div>
@@ -242,5 +244,6 @@ export default function Home() {
       </button>
       )}
     </div>
+    </React.Suspense>
   )
 }
